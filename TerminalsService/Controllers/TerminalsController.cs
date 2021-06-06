@@ -7,6 +7,7 @@ using TerminalsService.Models.DBModels;
 using TerminalsService.Models.ResponseModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RoutesSecurity;
 
 namespace TerminalsService.Controllers
 {
@@ -27,21 +28,23 @@ namespace TerminalsService.Controllers
         [Route("terminals")]
         public async Task<IActionResult> PostTerminals(TerminalsDto terminalsDto)
         {
+            PostTerminalResponse response = new PostTerminalResponse();
             try
             {
                 Terminals terminal = _terminalsRepository.PostTerminals(terminalsDto);
                 await _context.Terminals.AddAsync(terminal);
                 await _context.SaveChangesAsync();
+                response.TerminalId = Obfuscation.Encode(terminal.TerminalId);
             }
             catch (ArgumentNullException ex)
             {
-                return StatusCode(StatusCodes.Status422UnprocessableEntity, new ErrorResponse{ error = ex.Message });
+                return StatusCode(StatusCodes.Status422UnprocessableEntity, new ErrorResponse{ Error = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse{ error = ex.Message });
+                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse{ Error = ex.Message });
             }
-            return StatusCode(StatusCodes.Status201Created, new SuccessResponse{ message = CommonMessage.TerminalInserted });
+            return StatusCode(StatusCodes.Status201Created, response);
         }
 
         [HttpDelete]
@@ -56,15 +59,15 @@ namespace TerminalsService.Controllers
             }
             catch (ArgumentNullException ex)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse{ error = ex.Message });
+                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse{ Error = ex.Message });
             }
             catch (KeyNotFoundException ex)
             {
-                return StatusCode(StatusCodes.Status404NotFound, new ErrorResponse{ error = ex.Message });
+                return StatusCode(StatusCodes.Status404NotFound, new ErrorResponse{ Error = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse{ error = ex.Message });
+                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse{ Error = ex.Message });
             }
             return StatusCode(StatusCodes.Status204NoContent);
         }
@@ -80,7 +83,7 @@ namespace TerminalsService.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse{ error = ex.Message });
+                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse{ Error = ex.Message });
             }
             return StatusCode(StatusCodes.Status200OK, response);
         }
@@ -97,15 +100,15 @@ namespace TerminalsService.Controllers
             }
             catch (ArgumentNullException ex)
             {
-                return StatusCode(StatusCodes.Status422UnprocessableEntity, new ErrorResponse{ error = ex.Message });
+                return StatusCode(StatusCodes.Status422UnprocessableEntity, new ErrorResponse{ Error = ex.Message });
             }
             catch (KeyNotFoundException ex)
             {
-                return StatusCode(StatusCodes.Status404NotFound, new ErrorResponse{ error = ex.Message });
+                return StatusCode(StatusCodes.Status404NotFound, new ErrorResponse{ Error = ex.Message });
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse{ error = ex.Message });
+                return StatusCode(StatusCodes.Status400BadRequest, new ErrorResponse{ Error = ex.Message });
             }
             return StatusCode(StatusCodes.Status204NoContent);
         }
