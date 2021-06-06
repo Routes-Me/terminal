@@ -20,7 +20,7 @@ namespace TerminalsService.Controllers
         [Obsolete]
         public string Get()
         {
-            return "Internationalization service started successfully. Environment - " + _hostingEnv.EnvironmentName + "";
+            return "Terminals service started successfully. Environment - " + _hostingEnv.EnvironmentName + "";
         }
     }
 }

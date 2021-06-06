@@ -6,16 +6,8 @@ using TerminalsService.Models.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Mail;
-using System.Net;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using RoutesSecurity;
-using RestSharp;
 
 namespace TerminalsService.Repository
 {
