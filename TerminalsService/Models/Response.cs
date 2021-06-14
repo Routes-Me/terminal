@@ -1,20 +1,23 @@
-﻿using Newtonsoft.Json.Linq;
-using TerminalsService.Models.ResponseModel;
+﻿using TerminalsService.Models.ResponseModel;
 using System.Collections.Generic;
 
 namespace TerminalsService.Models
 {
     public class ErrorResponse
     {
-        public string error { get; set; }
+        public string Error { get; set; }
     }
     public class SuccessResponse
     {
-        public string message { get; set; }
+        public string Message { get; set; }
     }
     public class GetResponse
     {
-        public Pagination pagination { get; set; }
-        public List<TerminalsDto> data { get; set; }
+        public Pagination Pagination { get; set; }
+        public List<TerminalsDto> Data { get; set; }
+    }
+    public class PostTerminalResponse
+    {
+        public string TerminalId { get; set; }
     }
 }

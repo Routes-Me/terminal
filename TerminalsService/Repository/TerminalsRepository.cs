@@ -59,8 +59,8 @@ namespace TerminalsService.Repository
 
             return new GetResponse
             {
-                data = terminalsDtoList,
-                pagination = new Pagination
+                Data = terminalsDtoList,
+                Pagination = new Pagination
                 {
                     offset = pageInfo.offset,
                     limit = pageInfo.limit,
